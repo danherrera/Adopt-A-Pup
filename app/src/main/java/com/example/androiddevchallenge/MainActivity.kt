@@ -18,6 +18,7 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -33,6 +34,7 @@ import com.example.androiddevchallenge.ui.screens.Overview
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 // Start building your app here!
+@ExperimentalAnimationApi
 @Composable
 fun MyApp() {
     val navController = rememberNavController()
@@ -55,16 +58,23 @@ fun MyApp() {
             }
             composable(
                 Routes.details,
-                arguments = listOf(navArgument(Routes.Arguments.pupId) {
-                    type = NavType.LongType
-                })
+                arguments = listOf(
+                    navArgument(Routes.Arguments.pupId) {
+                        type = NavType.LongType
+                    }
+                )
             ) { backStackEntry ->
-                Details(repo, backStackEntry.arguments?.getLong(Routes.Arguments.pupId), navController)
+                Details(
+                    repo,
+                    backStackEntry.arguments?.getLong(Routes.Arguments.pupId),
+                    navController
+                )
             }
         }
     }
 }
 
+@ExperimentalAnimationApi
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
@@ -73,6 +83,7 @@ fun LightPreview() {
     }
 }
 
+@ExperimentalAnimationApi
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {
